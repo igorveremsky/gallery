@@ -14,15 +14,6 @@ function getExtension($str)
 
 $valid_formats = array("jpg", "png", "jpeg");
 
-?>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Добавление изображение</title>
-  <link rel="stylesheet" type="text/css" href="main.css">
-</head>
-<?php
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST") {
 	$title = stripcslashes(htmlspecialchars($_POST['title']));
 	$coment = stripcslashes(htmlspecialchars($_POST['coment']));
@@ -32,39 +23,40 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST") {
 		echo '<h2 class="form-title error-text">Комментарий не должен превышать 200 символов!</h2>';
 	}	
 
-	$filename = stripcslashes(htmlspecialchars($_FILES['photos']['name']));
-	$size=filesize($_FILES['photos']['tmp_name']);
-	$image=file_get_contents($_FILES['photos']['tmp_name']);
-	$image_db=mysql_escape_string($image);
+	if (!empty($_FILES['photo']['name'])) {
 
-	$ext = getExtension($filename);
-	$ext = strtolower($ext);
+		$filename = stripcslashes($_FILES['photo']['name']);
+		$size=filesize($_FILES['photo']['tmp_name']);
+		$image=file_get_contents($_FILES['photo']['tmp_name']);
+		$image_db=mysql_escape_string($image);
 
-	if(in_array($ext,$valid_formats)) {
-		if ($size < (MAX_SIZE*1024)) {
+		$ext = getExtension($filename);
+		$ext = strtolower($ext);
 
-			$image_name=time().$filename;
+		if(in_array($ext,$valid_formats)) {
+			if ($size < (MAX_SIZE*1024)) {
 
-			$newname=$uploaddir.$image_name;
-			if (move_uploaded_file($_FILES['photos']['tmp_name'][$name], $newname)) {
-				
-				mysql_query("INSERT INTO images (id,img,title,coment,time) VALUES('null','$image_db','$title','$coment', now())");
-				echo '
-				<h2 class="form-title">Изображение успешно добавлено</h2>
-				<a class="link go-link" href="/">Перейти на главную</a>';
+				$image_name=time().$filename;
+
+				$newname=$uploaddir.$image_name;
+				if (move_uploaded_file($_FILES['photo']['tmp_name'], $newname)) {
+					
+					mysql_query("INSERT INTO images (id,img,title,coment,time) VALUES('null','$image_db','$title','$coment', now())");
+					echo '<h2 class="form-title">Изображение успешно добавлено</h2>
+					<img class="preview-img" src='.$uploaddir.$image_name.'>';
+				} else {
+					echo '<h2 class="form-title error-text">Не удалось загрузить изображение!</h2>'; 
+				}
 			} else {
-				echo '<h2 class="form-title error-text">Не удалось загрузить изображение!</h2>
-					<a class="link go-link" href="/">Перейти на главную</a>'; 
+				echo '<h2 class="form-title error-text">Файл не должен превышать размер 1Мб!</h2>';
 			}
+
 		} else {
-			echo '<h2 class="form-title error-text">Файл не должен превышать размер 1Мб!</h2>
-			<a class="link go-link" href="/">Перейти на главную</a>';
+			echo '<h2 class="form-title error-text">Некоректное расширение изображение! Разрешены только jpg, png, jpeg!</h2>';
 		}
 
 	} else {
-		echo '<h2 class="form-title error-text">Некоректное расширение изображение! Разрешены только jpg, png, jpeg!</h2>
-			<a class="link go-link" href="/">Перейти на главную</a>';
+		echo '<h2 class="form-title error-text">Вы не загрузили изображение!</h2>';
 	}
-
 }
 ?>

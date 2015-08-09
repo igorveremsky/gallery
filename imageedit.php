@@ -1,14 +1,6 @@
 <?php
 include('db.php');
-?>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <title>Редактирование изображение</title>
-  <link rel="stylesheet" type="text/css" href="main.css">
-</head>
-<?php
+
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST") {
 	
 	$id = stripcslashes(htmlspecialchars($_POST['id']));
@@ -17,14 +9,10 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST") {
 
 	if (mysql_query("UPDATE images SET title='$title', coment='$coment' WHERE id=".$id)) {
 		echo '
-		<h2 class="form-title">Изображение отредактировано</h2>
-		<a class="link go-link" href="javascript:history.back()">Вернутся к редактированию</a>
-		<a class="link go-link" href="/">Перейти на главную</a>';
+		<h2 class="form-title">Изображение отредактировано</h2>';
 	} else {
 		echo '
-		<h2 class="form-title error-text">Произошла ошибка при сохранении данных</h2>
-		<a class="link go-link" href="javascript:history.back()">Вернутся к редактированию</a>
-		<a class="link go-link" href="/">Перейти на главную</a>';
+		<h2 class="form-title error-text">Произошла ошибка при сохранении данных</h2>';
 	}
 
 
