@@ -87,8 +87,8 @@ function open_big() {
 	resize_big();
 }
 
-function open_form(form) {
-	$('.'+form+'-form-content').fadeIn(1000);
+function open_form() {
+	$('.form-content').fadeIn(1000);
 	$('.big-img-bg').fadeIn(500);
 	resize_form();
 }
@@ -105,11 +105,7 @@ function resize_big () {
 
 function resize_form () {
 	big_w = $('.form-wrap').css('width');
-	big_h = $('.form-wrap').css('height');
-
-	if (big_h=='0px') {
-		big_h = $('.result-msg').css('height');
-	};
+	big_h = $('.result-msg').css('height');
 	var	scroll = $(window).scrollTop();
 
 	$('.form-wrap').css('margin-top', scroll);

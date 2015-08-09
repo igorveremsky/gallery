@@ -314,20 +314,6 @@ input, textarea, select {
 	margin-left: 10px;
 }
 
-#preview {
-	color:#cc0000;
-	font-size:12px
-}
-
-.imgList {
-	max-height:150px;
-	margin-left:5px;
-	border:1px solid #dedede;
-	padding:4px;
-	float:left;
-}
-
-
 .edit-image-form {
 	margin: 0px auto;
 }

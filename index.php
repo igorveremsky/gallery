@@ -32,25 +32,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="big-content form-content add-form-content">
-		<div class="form-wrap">
-			<h2 class="form-title form-main-title">Добавить изображение</h2>
-			<div class="result"></div>
-			<form class="image-form add-image-form" method="post" enctype="multipart/form-data">
-				<p class="form-text">Название:</p>
-				<input type="text" class="form-input-text" name="title" required><br>
-				<p class="form-text">Коментарий:</p>
-				<textarea name="coment" class="form-input-text" required></textarea><br>
-				<p class="form-text">Изображение:</p>
-				<div id='imageloadstatus' style='display:none'><img src="loader.gif" alt="Uploading...."/></div>
-				<div id='imageloadbutton'>
-					<input type="file" name="photo" id="photoimg" required/>
-				</div>
-				<input type="submit" class="form-input-submit" value="Добавить">
-			</form>
-		</div>
-	</div>
-	<div class="big-content form-content delete-form-content">
+	<div class="big-content form-content">
 		<div class="form-wrap result-msg">
 		</div>
 	</div>
@@ -65,16 +47,10 @@
 				<option value="date_down">самые новые</option>
 				<option value="date_up">самые старые</option>
 			</select>
-			<script type="text/javascript">
-				$(".sort-select [value='<?php echo $sort; ?>']").attr('selected','selected');
-			</script>
 		</form>
 	</div>
 	<ul class="gallery">
-		<?php
-		include 'imageview.php';
-		?>
 	</ul>
-	<a class="link add-link" href="javascript:open_form('add')">Добавить изображение</a>
+	<a class="link add-link" href="javascript:add_image()">Добавить изображение</a>
 </body>
 </html>
