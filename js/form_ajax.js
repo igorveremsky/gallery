@@ -1,13 +1,9 @@
-$(document).ready(function() {
-	view_images('');
-});
-
 function submit_add() {
 
 	var formdata = new FormData($('#add-image')[0]);
 
 	$.ajax({
-		url: 'image.php',
+		url: 'image/add',
 		type: 'post',
 		data: formdata,
 		processData: false,
@@ -44,7 +40,7 @@ function submit_sort () {
 function view_images (sort) {
 
 	$.ajax({
-		url: 'image.php',
+		url: '/image/view',
 		type: 'post',
 		data: sort,
 		success: function(data) {
@@ -57,12 +53,11 @@ function view_images (sort) {
 
 }
 
-
 function submit_edit () {
 	data = $('.edit-image-form').serialize();
 
 	$.ajax({
-		url: 'image.php',
+		url: 'image/edit',
 		type: 'post',
 		data: data,
 		success: function(data) {
@@ -83,9 +78,7 @@ function submit_edit () {
 function add_image () {
 
 	$.ajax({
-		url: 'image.php',
-		type: 'get',
-		data: '&action=add',
+		url: 'image/add/',
 		success: function(data) {
 			$('.result-msg').html(data);
 			open_form();
@@ -99,9 +92,7 @@ function add_image () {
 function delete_image (id) {
 
 	$.ajax({
-		url: 'image.php',
-		type: 'get',
-		data: 'id='+id+'&action=delete',
+		url: 'image/delete/'+id,
 		success: function(data) {
 			$.when(view_images('')).done(function  () {
 				$('.result-msg').html(data);
@@ -120,9 +111,7 @@ function delete_image (id) {
 function edit_image (id) {
 
 	$.ajax({
-		url: 'image.php',
-		type: 'get',
-		data: 'id='+id+'&action=edit',
+		url: 'image/edit/'+id,
 		success: function(data) {
 			view_images('');
 			$('.result-msg').html(data);

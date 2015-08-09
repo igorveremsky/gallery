@@ -58,10 +58,9 @@ function big_info (block) {
 			time = $('.gallery').find('li').eq(i)
 				.find('.img').attr('data-time');
 			
-			index = img.lastIndexOf('/');
+			img = img.replace('url(','');
 			img = img.replace(')','');
-			img = img.substr(index+1);
-
+            
 			images.push(img);
 			titles.push(title);
 			coments.push(coment);
@@ -71,7 +70,6 @@ function big_info (block) {
 	}
 
 	current = $(block).parent().parent('li').index();
-	console.log(images,titles,coments,times,current);
 	show_slide(images,titles,coments,times,current);
 
 }
